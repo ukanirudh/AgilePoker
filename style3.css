@@ -1,0 +1,346 @@
+
+
+
+body
+{
+background-color:gainsboro;
+margin:0px;	
+}
+
+.headpart1
+{
+	margin-top: auto;
+    margin-bottom: auto;
+	margin-right: 100px;
+	font-size: -webkit-xxx-large;
+    font-family: "Lucida Sans Unicode";
+}
+.logdetails
+{
+	margin-top: auto;
+    margin-bottom: auto;
+	margin-left: 100px;
+}
+
+.pagehead
+{
+	min-height: 70px;
+    font-size: 25px;
+    display: flex;
+    justify-content: space-around;
+	background-color: dodgerblue;
+}
+.outerbox
+{
+	background-color:aliceblue;
+	flex-direction:column;
+	justify-content:center;
+}
+
+.tablets
+{
+    display: flex;
+    justify-content: center;
+    width: 60%;
+    flex-wrap: wrap;
+	min-width:207px;
+}
+
+
+
+#mainbox
+{
+	margin: 0 auto;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+}
+#div1
+{
+float:left;	
+}
+#div2
+{
+float:left;
+}
+
+#div3
+{
+	float:right;
+	display:flex;
+	justify-content:center; 
+}
+
+#time1
+{
+	display:flex;
+	flex-direction:row;
+	justify-content:center; 
+}
+#demo
+{
+    font-size: x-large;
+    top: 10px;
+    position: relative;
+    display: inline;
+}
+
+#com
+{
+	display:flex;
+	flex-direction:column;
+	justify-content:space-between;
+	margin-bottom: 100px;
+    margin-top: 100px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#namein
+{
+	box-shadow: 10px 10px 5px dodgerblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	
+	border: 2px solid;
+    border-radius: 5px;
+    margin-left: 30%;
+    margin-right: 30%;
+	margin-top:20px;
+	
+	min-width:295px;
+	
+	background-color:aliceblue;
+}
+
+#box1 {
+    float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#box2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+.na{
+	margin:10px;
+	width:20%;
+	float:left;
+	font-size:20px;
+	
+}
+.va{
+	margin:10px;
+	width:20%;
+	float:left;
+	font-size:20px;
+}
+
+
+
+#nb2
+{
+	border:2px solid;
+	height:44px;
+	width:50%;
+	border-radius: 5px;
+	font-size: large;
+}
+#nb1
+{
+
+	border:2px solid;
+	height:44px;
+	width:50%;
+	border-radius: 5px;
+	font-size: large;
+}
+
+
+#b1
+{
+	display: flex;
+    justify-content: center;
+}
+
+button{
+	margin:10px;
+	background-color:white;
+	color:red;
+	border:3px solid;
+	border-width:thin;
+	cursor: pointer;
+}
+
+#click1
+{
+	height:50px;
+	width:50px;
+	color:gray;
+	background-color:black;
+	
+}
+
+#b
+{
+	width: 70%;
+	display:flex;
+	flex-direction:column;
+	align-self: center;
+}
+
+#in
+{
+	height:30px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+#in2
+{
+	height:30px;
+	margin-bottom: 10px;
+}
+
+
+.submit
+{
+	font-size: x-large;
+    border: 2px solid;
+    border-radius: 4px;
+    width: 40%;
+}
+
+.mybutton1
+{
+	width: 75%;
+    display: flex;
+    justify-content: center;
+}
+
+.complete
+{
+	display: flex;
+    justify-content: center;
+}
+
+.set1
+{
+	display:flex;
+	flex-direction:row;
+	justify-content:center;
+	width:94%;
+}
+.done
+{
+
+	width: 90%;
+	border:2px solid;
+	height:44px;
+	border-radius: 5px;
+	font-size: large;
+	color: cornflowerblue;
+}
+
+.tos
+{	
+    width: 200px;
+    /*border: 1px solid #666;*/
+    padding: 10px 0 ;
+    text-align:center;
+    opacity: .9;
+	-webkit-transition: opacity 4s ease-out; /* Saf3.2+, Chrome */
+	transition: opacity 4s ease-out;
+	float:right;
+}
+
+.disroom
+{
+	width: 60%;
+    margin: auto;
+	font-family: cursive;
+}
+
+td:nth-of-type(2) {
+   padding-right: 70px;
+}
+
+th:nth-of-type(2) {
+   padding-right: 70px;
+}
+
+.clock
+{
+	margin-right:10px;
+}
+.foot
+{
+	background-color:gainsboro;
+	display:flex;
+	justify-content:center;
+}
+
+#he
+{
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+	overflow-y: scroll;
+    max-height: 250px;
+	min-width:130px;
+}
+
+.votechoice
+{
+	border-radius:4px;
+	width:	25%;
+	margin: 15px;
+    height: 15%;
+	font-size: x-large;
+	border: 2px solid;
+	color: dodgerblue;
+	cursor: pointer;
+}
+
+.url
+{
+	font-size: x-large;
+}
+
+.invitationblock
+{
+margin:auto;
+width: 70%;	
+}
+
+
+.invite
+{
+	width:100%;
+}
+
+.myTableData
+{
+	margin:auto;
+	font-size: larger;
+}
+
+button:hover{
+
+background-color:#B6E1EC;
+}
+
+button:active{
+	background-color: black;
+}
+
+footer{
+	display:block;
+}
