@@ -6,6 +6,7 @@
 	background-color:aliceblue;
 	flex-direction:column;
 	justify-content:center;
+    visibility: hidden;
 }
 
 .tablets
@@ -69,7 +70,7 @@
 	min-width:130px;
 }
 
-.headpart1
+.applicationName
 {
 	margin-top: auto;
     margin-bottom: auto;
@@ -243,7 +244,7 @@ body
 	margin-top: 10px;
 }
 
-.headpart1
+.applicationName
 {
 	margin-top: auto;
     margin-bottom: auto;
@@ -275,6 +276,7 @@ body
 	background-color:aliceblue;
 	flex-direction:column;
 	justify-content:center;
+    visibility: hidden;
 }
 
 .mybutton1

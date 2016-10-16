@@ -5,7 +5,7 @@ background-color:gainsboro;
 margin:0px;	
 }
 
-.headpart1
+.applicationName
 {
 	margin-top: auto;
     margin-bottom: auto;
@@ -33,6 +33,7 @@ margin:0px;
 	background-color:aliceblue;
 	flex-direction:column;
 	justify-content:center;
+    visibility: hidden;
 }
 
 .tablets

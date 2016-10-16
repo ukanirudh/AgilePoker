@@ -9,21 +9,16 @@
 		<!--<link rel="stylesheet" type="text/css" media="handheld and (max-width:900px)"  href="style3.css"></link>-->
 	</head>
 
-
-	<body onload="loadfun()">
-
+	<body onload="onApplicationLoad()">
 		<script id="myScript" type="text/javascript" src="owner.js"></script>
 		<script src="toast.js"></script>
 
 		<header class="pagehead">
-
-			<div class="headpart1">Poker</div>
-
+			<div class="applicationName">Poker</div>
 			<div class="logdetails" id="log" style="display:inline-flex;">
 				<i class="fa fa-user"  id="sticon" style="font-size:30px; margin-right:10px;"></i>
 				<div class="newuser">User</div>
 			</div>
-
 		</header>
 
 		<div id="namein">
@@ -34,96 +29,73 @@
 			<div style="margin-right: 40px;">
 				NAME:<input type="text" id="in"  style="border: 2px solid;border-radius: 3px;"></input>
 			</div>
-		
 			<div class="mybutton1">
 				<button type="button" class="submit" onclick="fun()">Enter</button>
 			</div>
 		</div>
 
-	<div class="outerbox">
-		
-		<div class="roomdetails"><h2 class="disroom"></h2></div>
-			
-		<div id="mainbox">
+        <div class="outerbox">
+            <div class="roomdetails"><h2 class="disroom"></h2></div>
+            <div id="mainbox">
+                <div id="box1">
+                    <div id="showdetails">
+                        <h3 class="maxvote"></h3>
+                        <h3 class="minvote"></h3>
+                        <h2 class="Result"></h2>
+                    </div>
 
-			<div id="box1">
+                    <div class="tablets" id="tab1">		
+                        <button type="button" class="votechoice"  onclick="clicked(0)">0</button>
 
+                        <button type="button" class="votechoice" onclick="clicked(1)">1</button>
 
-				<div id="showdetails">
-					<h3 class="maxvote"></h3>
-					<h3 class="minvote"></h3>
-					<h2 class="Result"></h2>
-				</div>
+                        <button type="button" class="votechoice" onclick="clicked(2)">2</button>
 
+                        <button type="button" class="votechoice"  onclick="clicked(4)">4</button>
 
-				<div class="tablets" id="tab1">
-							
-					<button type="button" class="votechoice"  onclick="clicked(0)">0</button>
-							
-					<button type="button" class="votechoice" onclick="clicked(1)">1</button>
-							
-					<button type="button" class="votechoice" onclick="clicked(2)">2</button>
-						
-					<button type="button" class="votechoice"  onclick="clicked(4)">4</button>
-							
-					<button type="button" class="votechoice" onclick="clicked(8)">8</button>
-							
-					<button type="button"  class="votechoice" onclick="clicked(16)">16</button>
-					
-					<button type="button" class="votechoice" onclick="clicked(32)">32</button>
-						
-					<button type="button" class="votechoice" onclick="clicked(64)">64</button>
-						
-					<button type="button" class="votechoice"  onclick="clicked(100)">100</button>						
-				</div>
-			</div>
+                        <button type="button" class="votechoice" onclick="clicked(8)">8</button>
 
-			<div id="box2">
+                        <button type="button"  class="votechoice" onclick="clicked(16)">16</button>
 
-				<div id="time1">
-					<div id="t">
-						<p id="demo"> Timer </p>
-					</div>
-				</div>
+                        <button type="button" class="votechoice" onclick="clicked(32)">32</button>
 
+                        <button type="button" class="votechoice" onclick="clicked(64)">64</button>
 
-				<div id="com">
-					<div><h2 style="display:flex;justify-content:center;">Players</h2></div>
-
-					<div id="he">
-						<table class="myTableData" id="tabledata" cellpadding="5">
-							<tr>
-								<th><b></b></th>
-								<th><b>Name</b></th>
-								<th><b>Vote</b></th>
-							</tr>
-						</table>
-					</div>
-
-				</div>
-
-				<div><p class="complete"></p></div>
-
-				<div id="b">
-					<div class="set1">
-						<button type="button" id="nb1"  onclick="settozero()" style="border-color:red;">clear</button>
-						<button type="button" id="nb2" onclick="clearv1();" style="border-color:red;">Reset Poker</button>
-					</div>
-
-					<div class="set2"><button type="button" class="done" onclick="finish()">DONE</button></div>
-				</div>
-
-				<div class="invitationblock" id="inviblock">
-					<h2 class="invitationtext"> Invitation </h2>
-					<textarea rows="2" class="invite" readonly></textarea>
-				</div>
-
-			</div>
-
-		</div>
-
-
-	</div>
-
+                        <button type="button" class="votechoice"  onclick="clicked(100)">100</button>						
+                    </div>
+                </div>
+                <div id="box2">
+                    <div id="time1">
+                        <div id="t">
+                            <p id="demo"> Timer </p>
+                        </div>
+                    </div>
+                    <div id="com">
+                        <div><h2 style="display:flex;justify-content:center;">Players</h2></div>
+                        <div id="he">
+                            <table class="myTableData" id="tabledata" cellpadding="5">
+                                <tr>
+                                    <th><b></b></th>
+                                    <th><b>Name</b></th>
+                                    <th><b>Vote</b></th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div><p class="complete"></p></div>
+                    <div id="b">
+                        <div class="set1">
+                            <button type="button" id="nb1"  onclick="settozero()" style="border-color:red;">clear</button>
+                            <button type="button" id="nb2" onclick="clearv1();" style="border-color:red;">Reset Poker</button>
+                        </div>
+                        <div class="set2"><button type="button" class="done" onclick="finish()">DONE</button></div>
+                    </div>
+                    <div class="invitationblock" id="inviblock">
+                        <h2 class="invitationtext"> Invitation </h2>
+                        <textarea rows="2" class="invite" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</body>
 </html>
