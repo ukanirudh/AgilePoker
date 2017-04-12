@@ -15,7 +15,8 @@
 
 		<script id="myScript" type="text/javascript" src="client.js"></script>
 		<script src="toast.js"></script>
-		
+		<script type="text/javascript"  src="angular.min.js"></script>
+
 		<header class="pagehead">
 			<div class="applicationName">Poker</div>
 			<div class="logdetails" id="log" style="display:inline-flex;">
@@ -29,10 +30,10 @@
 			<div style="margin-right: 40px;">
 				NAME:<input type="text" id="in"  style="border: 2px solid;border-radius: 3px;"></input>
 			</div>
-				
+
 			<div class="mybutton1">
 				<button type="button" class="submit" style="margin-bottom:20px;" onclick="fun()">Enter</button>
-			</div>		
+			</div>
 		</div>
 
 		<div class="outerbox">
@@ -44,23 +45,23 @@
 						<h3 class="minvote"></h3>
 						<h2 class="Result"></h2>
 					</div>
-					<div class="tablets"  id="tab1">		
+					<div class="tablets"  id="tab1">
 						<button type="button" class="votechoice"  onclick="clicked(0)">0</button>
-							
+
 						<button type="button" class="votechoice" onclick="clicked(1)">1</button>
-							
+
 						<button type="button" class="votechoice" onclick="clicked(2)">2</button>
-							
+
 						<button type="button" class="votechoice"  onclick="clicked(4)">4</button>
-							
+
 						<button type="button" class="votechoice" onclick="clicked(8)">8</button>
-							
+
 						<button type="button"  class="votechoice" onclick="clicked(16)">16</button>
-							
+
 						<button type="button" class="votechoice" onclick="clicked(32)">32</button>
-						
+
 						<button type="button" class="votechoice" onclick="clicked(64)">64</button>
-						
+
 						<button type="button" class="votechoice"  onclick="clicked(100)">100</button>
 					</div>
 				</div>

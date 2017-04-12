@@ -11,25 +11,8 @@ var keepcount={0:0,1:0,2:0,4:0,8:0,16:0,32:0,64:0,100:0};
 var keepnames=[];
 
 var dispactualvotes=false;
-/*Function to display time*/
 
-function myCounter() {
-	c++;
-	if(c == 60)
-	{
-		c=0;
-		if(m<=60)
-			m++;
-		else
-		{
-			m=0;
-			h++;
-		}
-	}
-    document.getElementById("demo").innerHTML = h + ":" + m + ":" + c;
-}
-
-/*load the namees and the votes from the database in a table format*/
+/*load the names and the votes from the database in a table format*/
 function displayvotes(name,vote)
 {
 	var userVote=vote;
@@ -51,56 +34,6 @@ function displayvotes(name,vote)
 	}
 }
 
-function clearv1()
-{
-	var options = {
-    style:{
-        main:{
-            background: "lightsalmon",
-            color: "black",
-			'max-width': '10%',
-			}
-		}
-	};
-    iqwerty.toast.Toast(' Timer has been reset!!',options);
-	clearInterval(myTimer,0); //Clearinterval function clears the interval specified by the SetInterval function...
-	c=0;
-	m=0;
-	h=0;
-	myTimer = setInterval(myCounter, 1000);//setInterval is a inbuilt function to call particular function(here its myCounter) at specified time intervals.. .
-}
-
-/*when button is clicked against the particular vote*/
-function clicked(vote)
-{
-	if(name == 'null')
-	{
-		window.alert("you have to enter your name first!!!!");
-	}
-	else
-	{
-		vote1=vote;
-		updatevote();  //function to updatee the vote in case user has changed his vote...
-	}
-}
-
-/*actions to be taken when name has been input and enter has been pressed*/
-function fun(event)
-{
-	//var x=event.which || event.keyCode;
-	name=document.getElementById("in").value;
-	roomname=document.getElementById("in2").value;
-	//if(x == 13) //x is the keycode for ENTER...
-	document.getElementById('namein').style.display = 'none'; //hides the page element...
-	mainfun();
-	updatefirebase(); //create new entry for the user...
-	myTimer = setInterval(myCounter, 1000); //start the timer...
-	myCounter(); //starts the timer...
-	listenchange(roomname); //listens to any change on that particular room...
-	document.getElementsByClassName('newuser')[0].innerHTML=name;
-	document.getElementsByClassName("logdetails")[0].style.visibility="visible";
-}
-
 /*to display the toast*/
 function hideToast(newjoin)
 {
@@ -109,189 +42,13 @@ function hideToast(newjoin)
         main: {
             background: "cornflowerblue",
             color: "black",
-			'max-width': '10%',
-            }
+						'max-width': '10%',
+          }
         }
     };
     iqwerty.toast.Toast( newjoin + ' has joined!!',options);
 }
 
-/*once DONE button is pressed*/
-function finish()
-{
-
-	document.getElementById('tab1').style.display = 'none';
-	document.getElementById('showdetails').style.display = 'block';
-	clearInterval(myTimer,0);//stops the timer...
-
-	dispactualvotes=true;
-
-	var end="finish";
-	updatefirebase1(end,0); //a seperate function when DONE button is pressed...
-
-	document.getElementsByClassName("complete")[0].innerHTML="Voting has been completed!!!!";
-	var inputs = document.getElementsByTagName("Button");
-
-	for (var i = 0; i < inputs.length; i++) //disable all the input button...
-	{
-		inputs[i].disabled = true;
-		inputs[i].style.cursor = "not-allowed";
-	}
-
-	var resetbutton=document.getElementById("nb2");
-	resetbutton.disabled=false;
-	resetbutton.style.cursor="pointer";
-
-	updatefirebase1(end,8);//a dummy to trigger on client side...
-	dispsummary(); //to display the reesult after finish buttton is pressed...
-}
-
-function dispsummary()
-{
-	var min=6;
-	var max=0;
-	var countrep=0,total=0,avg=0;
-	var diff=0,near=0;
-
-	var myFirebaseRef = new Firebase("https://flickering-torch-439.firebaseio.com/");
-	var usersRef = myFirebaseRef.child("users");
-	var ref=usersRef.child(roomname);
-	ref.on("child_added", function(snapshot, prevChildKey) {
-		var givenvotes=snapshot.val();
-		if(givenvotes.name == "finish")  //a special case when DONE button is pressed...
-		{
-		}
-		else
-		{
-			keepnames[givenvotes.name]=givenvotes.vote;
-			keepcount[givenvotes.vote]++;
-			change(givenvotes.name,givenvotes.vote);//display the actual votes to the organizer after votting is completed...
-		}
-	});
-
-	for(var i in keepcount)
-	{
-		if(keepcount[i]!= 0)
-		{
-			min=i;//the minimum vote given...
-			break;
-		}
-	}
-
-	for(var j in keepcount)
-	{
-		if(keepcount[j]!= 0)
-		{
-			max=j;//the maximum vote given...
-		}
-	}
-
-	for(var k in keepcount)
-	{
-		if(keepcount[k]!= 0)
-		{
-			countrep=countrep+keepcount[k];
-			total=total+(k*keepcount[k]);
-		}
-	}
-	avg=((total)/(countrep));
-	diff=avg;
-
-	for(var k in keepcount)
-	{
-        if(Math.abs(avg-k)<diff)
-        {
-            diff=Math.abs(avg-k);
-            near=k;
-        }
-	}
-	checkname(max,min,near);
-}
-
-function checkname(max,min,near)
-{
-	var max1=max;
-	var min1=min;
-	var near1=near;
-	var maxdisp="",mindisp="";
-
-	for(var i in keepnames)
-	{
-		if(keepnames[i] == max1)
-			maxdisp= maxdisp + i + ",";
-
-		if(keepnames[i] == min1)
-			mindisp= mindisp + i + ",";
-	}
-	maxdisp=maxdisp.slice(0,-1);
-	mindisp=mindisp.slice(0,-1);
-	document.getElementsByClassName("maxvote")[0].innerHTML="Max. votes: " + "(" + maxdisp + ")" + " -" + max1;
-	document.getElementsByClassName("minvote")[0].innerHTML="Min. votes: " + "(" + mindisp + ")" + " -" + min1;
-	document.getElementsByClassName("Result")[0].innerHTML="Result: " + near1;
-}
-
-
-
-//**********************firebase update functionalities.....**************
-//to call a function when finish button is pressed and to take respective action (specially defined )
-function updatefirebase1(end,vo)
-{
-	var myFirebaseRef = new Firebase("https://flickering-torch-439.firebaseio.com/");  //The url represents the destination of data being stored...
-	var name1=end;
-	var usersRef = myFirebaseRef.child("users");
-	var ref=usersRef.child(roomname);
-	var datas=ref.child(name1);
-	datas.set({
-	name: name1,
-	vote: vo
-  });
-}
-
-/*setting the vote to zero when reset button is pressed*/
-function settozero()
-{
-	var stat=window.confirm("Do you want to RESET your vote??");
-	if(stat == true)
-	{
-		var myFirebaseRef = new Firebase("https://flickering-torch-439.firebaseio.com/");
-
-		var usersRef = myFirebaseRef.child("users");
-		var ref=usersRef.child(roomname);
-		var datas=ref.child(name);
-		datas.update({
-		vote: -1
-		});
-	}
-}
-
-/*to update the vote in the database*/
-function updatevote()
-{
-	var curtime=h + ":" + m + ":" + c;
-	var myFirebaseRef = new Firebase("https://flickering-torch-439.firebaseio.com/");
-	var usersRef = myFirebaseRef.child("users");
-	var ref=usersRef.child(roomname);
-	var datas=ref.child(name);
-	datas.update({
-	vote: vote1,
-	time: curtime //change made now...
-  });
-}
-
-/*to create a new entry in the database for the particular user*/
-function updatefirebase()
-{
-	var myFirebaseRef = new Firebase("https://flickering-torch-439.firebaseio.com/");
-	var name1=name;
-	var usersRef = myFirebaseRef.child("users");
-	var ref=usersRef.child(roomname);
-	var datas=ref.child(name1);
-	datas.set({
-	name: name,
-	vote: -1,
-	time: 0         //change made..
-  });
-}
 
 /*this is a selfcalling background function,which continously listens for the change*/
 (function listenchange(roomname){
@@ -337,6 +94,259 @@ function updatefirebase()
     }
 })();
 
+(function(){
+	var app = angular.module('store',[]);
+
+		app.service('firebaseConnectivity', function() {
+			/*to create a new entry in the database for the particular user*/
+			this.updatefirebase = function(userName,storyName)
+			{
+				var myFirebaseRef = new Firebase("https://flickering-torch-439.firebaseio.com/");
+				var usersRef = myFirebaseRef.child("users");
+				var ref=usersRef.child(storyName);
+				var datas=ref.child(userName);
+				datas.set({
+				name: userName,
+				vote: -1,
+				time: 0
+			  });
+			};
+
+			this.updatefirebase1 = function (end,vo)
+			{
+				var story = document.getElementById("in2").value;
+				var myFirebaseRef = new Firebase("https://flickering-torch-439.firebaseio.com/");  //The url represents the destination of data being stored...
+				var name1=end;
+				var usersRef = myFirebaseRef.child("users");
+				var ref=usersRef.child(story);
+				var datas=ref.child(name1);
+				datas.set({
+				name: name1,
+				vote: vo
+			  });
+			};
+
+			/*to update the vote in the database*/
+			this.updatevote = function(vote,userName,storyName)
+			{
+				var curtime=h + ":" + m + ":" + c;
+				var myFirebaseRef = new Firebase("https://flickering-torch-439.firebaseio.com/");
+				var usersRef = myFirebaseRef.child("users");
+				var ref=usersRef.child(storyName);
+				var datas=ref.child(userName);
+				datas.update({
+				vote: vote,
+				time: curtime //change made now...
+				});
+			};
+
+			this.myCounter = function() {
+				c++;
+				if(c == 60)
+				{
+					c=0;
+					if(m<=60)
+						m++;
+					else
+					{
+						m=0;
+						h++;
+					}
+				}
+			    document.getElementById("demo").innerHTML = h + ":" + m + ":" + c;
+			};
+		});
+
+		app.controller('loginController',function(firebaseConnectivity){
+			/*actions to be taken when name has been input and enter has been pressed*/
+			self=this;
+			self.fun = function(event)
+			{
+				this.userName = document.getElementById("in").value;
+				this.story = document.getElementById("in2").value;
+				document.getElementById('namein').style.display = 'none'; //hides the page element...
+				mainfun(this.userName,this.story);
+				firebaseConnectivity.updatefirebase(this.userName,this.story); //create new entry for the user...
+				myTimer = setInterval(firebaseConnectivity.myCounter, 1000); //start the timer...
+				firebaseConnectivity.myCounter(); //starts the timer...
+				listenchange(this.story); //listens to any change on that particular room...
+				document.getElementsByClassName('newuser')[0].innerHTML=name;
+				document.getElementsByClassName("logdetails")[0].style.visibility="visible";
+			}
+		});
+
+		app.controller('panelController',function(firebaseConnectivity){
+		self=this;
+		/*when button is clicked against the particular vote*/
+		this.clicked = function(vote)
+		{
+			var userName=document.getElementById("in").value;
+			var storyName=document.getElementById("in2").value;
+			if(userName == 'null')
+			{
+				window.alert("you have to enter your name first!!!!");
+			}
+			else
+			{
+				firebaseConnectivity.updatevote(vote, userName, storyName);  //function to updatee the vote in case user has changed his vote...
+			}
+		};
+	});
+
+	app.controller('actionsController',function(firebaseConnectivity){
+		self=this;
+
+		function dispsummary()
+		{
+			var min=6;
+			var max=0;
+			var countrep=0,total=0,avg=0;
+			var diff=0,near=0;
+			var story = document.getElementById("in2").value;
+			var myFirebaseRef = new Firebase("https://flickering-torch-439.firebaseio.com/");
+			var usersRef = myFirebaseRef.child("users");
+			var ref=usersRef.child(story);
+			ref.on("child_added", function(snapshot, prevChildKey) {
+				var givenvotes=snapshot.val();
+				if(givenvotes.name == "finish")  //a special case when DONE button is pressed...
+				{
+				}
+				else
+				{
+					keepnames[givenvotes.name]=givenvotes.vote;
+					keepcount[givenvotes.vote]++;
+					change(givenvotes.name,givenvotes.vote);//display the actual votes to the organizer after votting is completed...
+				}
+			});
+
+			for(var i in keepcount)
+			{
+				if(keepcount[i]!= 0)
+				{
+					min=i;//the minimum vote given...
+					break;
+				}
+			}
+
+			for(var j in keepcount)
+			{
+				if(keepcount[j]!= 0)
+				{
+					max=j;//the maximum vote given...
+				}
+			}
+
+			for(var k in keepcount)
+			{
+				if(keepcount[k]!= 0)
+				{
+					countrep=countrep+keepcount[k];
+					total=total+(k*keepcount[k]);
+				}
+			}
+			avg=((total)/(countrep));
+			diff=avg;
+
+			for(var k in keepcount)
+			{
+		        if(Math.abs(avg-k)<diff)
+		        {
+		            diff=Math.abs(avg-k);
+		            near=k;
+		        }
+			}
+			checkname(max,min,near);
+		};
+
+		function checkname(max,min,near)
+		{
+			var max1=max;
+			var min1=min;
+			var near1=near;
+			var maxdisp="",mindisp="";
+
+			for(var i in keepnames)
+			{
+				if(keepnames[i] == max1)
+					maxdisp= maxdisp + i + ",";
+
+				if(keepnames[i] == min1)
+					mindisp= mindisp + i + ",";
+			}
+			maxdisp=maxdisp.slice(0,-1);
+			mindisp=mindisp.slice(0,-1);
+			document.getElementsByClassName("maxvote")[0].innerHTML="Max. votes: " + "(" + maxdisp + ")" + " -" + max1;
+			document.getElementsByClassName("minvote")[0].innerHTML="Min. votes: " + "(" + mindisp + ")" + " -" + min1;
+			document.getElementsByClassName("Result")[0].innerHTML="Result: " + near1;
+		};
+
+		self.resetPoker = function()
+		{
+			var options = {
+		    style:{
+		        main:{
+		            background: "lightsalmon",
+		            color: "black",
+								'max-width': '10%',
+							}
+						}
+					};
+		  iqwerty.toast.Toast(' Timer has been reset!!',options);
+			clearInterval(myTimer,0); //Clearinterval function clears the interval specified by the SetInterval function...
+			c=0;
+			m=0;
+			h=0;
+			myTimer = setInterval(firebaseConnectivity.myCounter, 1000);//setInterval is a inbuilt function to call particular function(here its myCounter) at specified time intervals.. .
+		};
+		/*setting the vote to zero when reset button is pressed*/
+		self.settozero = function()
+		{
+			var stat=window.confirm("Do you want to RESET your vote??");
+			if(stat == true)
+			{
+				var myFirebaseRef = new Firebase("https://flickering-torch-439.firebaseio.com/");
+
+				var usersRef = myFirebaseRef.child("users");
+				var ref=usersRef.child(roomname);
+				var datas=ref.child(name);
+				datas.update({
+				vote: -1
+				});
+			}
+		};
+
+		/*once DONE button is pressed*/
+		self.finish = function()
+		{
+			document.getElementById('tab1').style.display = 'none';
+			document.getElementById('showdetails').style.display = 'block';
+			clearInterval(myTimer,0);//stops the timer...
+
+			dispactualvotes=true;
+
+			var end="finish";
+			firebaseConnectivity.updatefirebase1(end,0); //a seperate function when DONE button is pressed...
+
+			document.getElementsByClassName("complete")[0].innerHTML="Voting has been completed!!!!";
+			var inputs = document.getElementsByTagName("Button");
+
+			for (var i = 0; i < inputs.length; i++) //disable all the input button...
+			{
+				inputs[i].disabled = true;
+				inputs[i].style.cursor = "not-allowed";
+			}
+
+			var resetbutton=document.getElementById("nb2");
+			resetbutton.disabled=false;
+			resetbutton.style.cursor="pointer";
+
+			firebaseConnectivity.updatefirebase1(end,8);//a dummy to trigger on client side...
+			dispsummary(); //to display the reesult after finish buttton is pressed...
+		}
+	});
+
+})();
+
 
 /*to show current users in the database once the page is loaded*/
 function onApplicationLoad()
@@ -345,14 +355,14 @@ function onApplicationLoad()
 }
 
 /*to show current users in the database once the page is loaded*/
-function mainfun()
+function mainfun(userName,story)
 {
 	document.getElementsByClassName("outerbox")[0].style.visibility="visible";  //set the visibility of complete outerbox div as visible...
 	if(roomname!=undefined)
 	{
 		var myFirebaseRef = new Firebase("https://flickering-torch-439.firebaseio.com/");
 		var usersRef = myFirebaseRef.child("users");
-		var ref=usersRef.child(roomname);
+		var ref=usersRef.child(story);
 		ref.on("child_added", function(snapshot, prevChildKey) {
 		var givenvotes=snapshot.val();
 		if(givenvotes.name == "finish")  //a special case when DONE button is pressed...
@@ -363,17 +373,17 @@ function mainfun()
 		{
 			displayvotes(givenvotes.name,givenvotes.vote);  //call displayvote function to display the player name and his vote...
 		}
-		if(name!= 'null')
+		if(userName!= 'null')
 		{
             hideToast(givenvotes.name);
 		}
 		});
 		var node=document.getElementsByClassName("invite")[0]; /*direct the invite text to client page with RoomName passed as parameter*/
-		var url=window.location.href + "?exsistingroom=" + roomname;
+		var url=window.location.href + "?exsistingroom=" + story;
 		url=url.replace("front", "client");
 		node.innerHTML=url;
 		var node2=document.getElementsByClassName("disroom")[0];
-		node2.innerHTML=roomname.toUpperCase();
+		node2.innerHTML=story.toUpperCase();
 	}
 	else
 	{

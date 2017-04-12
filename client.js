@@ -15,23 +15,21 @@ function displayvotes(name,vote)
 	count++;
 	var userVote=vote;
 	var userName=name;
-
 	var table = document.getElementsByClassName("myTableData")[0];
-
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-
+  var rowCount = table.rows.length;
+  var row = table.insertRow(rowCount);
 	var cell=row.insertCell(0);
-    cell.innerHTML="<i class='fa fa-user' style='font-size:30px'></i>";
-    row.insertCell(1).innerHTML= userName;
-    if(userVote==-1)
+  cell.innerHTML="<i class='fa fa-user' style='font-size:30px'></i>";
+  row.insertCell(1).innerHTML= userName;
+
+	if(userVote==-1)
 	{
-        row.insertCell(2).innerHTML= "--";//vote2;
-    }
+			row.insertCell(2).innerHTML= "--";//vote2;
+  }
 	else
 	{
-        row.insertCell(2).innerHTML= "&#x2714";//vote2;
-    }
+			row.insertCell(2).innerHTML= "&#x2714";//vote2;
+  }
 }
 
 function myCounter() {

@@ -1,4 +1,4 @@
-<html>
+<html ng-app="store">
 	<head>
 		<title>Poker</title>
 		<script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
@@ -6,10 +6,10 @@
 		<link rel="stylesheet" type="text/css" media="screen and (min-width:900px)"  href="style.css"></link>
 		<link rel="stylesheet" type="text/css" media="screen and (max-width:900px)"  href="style2.css"></link>
 		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"></link>
-		<!--<link rel="stylesheet" type="text/css" media="handheld and (max-width:900px)"  href="style3.css"></link>-->
 	</head>
 
 	<body onload="onApplicationLoad()">
+		<script type="text/javascript"  src="angular.min.js"></script>
 		<script id="myScript" type="text/javascript" src="owner.js"></script>
 		<script src="toast.js"></script>
 
@@ -21,7 +21,7 @@
 			</div>
 		</header>
 
-		<div id="namein">
+		<div id="namein" ng-controller='loginController as login'>
 			<div><h2>Enter the Details</h2></div>
 			<div style="margin-right: 40px;">
 				STORY:<input type="text" id="in2"  style="border: 2px solid;border-radius: 3px;"></input>
@@ -30,7 +30,7 @@
 				NAME:<input type="text" id="in"  style="border: 2px solid;border-radius: 3px;"></input>
 			</div>
 			<div class="mybutton1">
-				<button type="button" class="submit" onclick="fun()">Enter</button>
+				<button type="button" class="submit" ng-click="login.fun()">Enter</button>
 			</div>
 		</div>
 
@@ -44,24 +44,24 @@
                         <h2 class="Result"></h2>
                     </div>
 
-                    <div class="tablets" id="tab1">		
-                        <button type="button" class="votechoice"  onclick="clicked(0)">0</button>
+                    <div class="tablets" id="tab1" ng-controller="panelController as panel">
+                        <button type="button" class="votechoice"  ng-click="panel.clicked(0)">0</button>
 
-                        <button type="button" class="votechoice" onclick="clicked(1)">1</button>
+                        <button type="button" class="votechoice" ng-click="panel.clicked(1)">1</button>
 
-                        <button type="button" class="votechoice" onclick="clicked(2)">2</button>
+                        <button type="button" class="votechoice" ng-click="panel.clicked(2)">2</button>
 
-                        <button type="button" class="votechoice"  onclick="clicked(4)">4</button>
+                        <button type="button" class="votechoice"  ng-click="panel.clicked(4)">4</button>
 
-                        <button type="button" class="votechoice" onclick="clicked(8)">8</button>
+                        <button type="button" class="votechoice" ng-click="panel.clicked(8)">8</button>
 
-                        <button type="button"  class="votechoice" onclick="clicked(16)">16</button>
+                        <button type="button"  class="votechoice" ng-click="panel.clicked(16)">16</button>
 
-                        <button type="button" class="votechoice" onclick="clicked(32)">32</button>
+                        <button type="button" class="votechoice" ng-click="panel.clicked(32)">32</button>
 
-                        <button type="button" class="votechoice" onclick="clicked(64)">64</button>
+                        <button type="button" class="votechoice" ng-click="panel.clicked(64)">64</button>
 
-                        <button type="button" class="votechoice"  onclick="clicked(100)">100</button>						
+                        <button type="button" class="votechoice"  ng-click="panel.clicked(100)">100</button>
                     </div>
                 </div>
                 <div id="box2">
@@ -83,12 +83,12 @@
                         </div>
                     </div>
                     <div><p class="complete"></p></div>
-                    <div id="b">
+                    <div id="b" ng-controller='actionsController as actions'>
                         <div class="set1">
-                            <button type="button" id="nb1"  onclick="settozero()" style="border-color:red;">clear</button>
-                            <button type="button" id="nb2" onclick="clearv1();" style="border-color:red;">Reset Poker</button>
+                            <button type="button" id="nb1"  ng-click="actions.settozero()" style="border-color:red;">clear</button>
+                            <button type="button" id="nb2" ng-click="actions.resetPoker();" style="border-color:red;">Reset Poker</button>
                         </div>
-                        <div class="set2"><button type="button" class="done" onclick="finish()">DONE</button></div>
+                        <div class="set2"><button type="button" class="done" ng-click="actions.finish()">DONE</button></div>
                     </div>
                     <div class="invitationblock" id="inviblock">
                         <h2 class="invitationtext"> Invitation </h2>
